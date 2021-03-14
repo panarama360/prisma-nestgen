@@ -1,0 +1,37 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./prisma/generated-prisma/client"
+}
+
+generator test {
+  provider = "ts-node ./src/generator.ts"
+  handler = "./src/prisma.handler.ts"
+}
+
+/// @Metadata.test('hello', {hello: 'test', number: 12345})
+model Organisation {
+  id       Int      @id @default(autoincrement())
+  testEnum TestEnum
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+}
+
+/// @Metadata.user()
+model User {
+  id  Int            @id @default(autoincrement())
+  orgs Organisation[]
+  userName String
+  data Json
+  date DateTime
+  val Float
+}
+
+enum TestEnum {
+  hello
+  test
+}
