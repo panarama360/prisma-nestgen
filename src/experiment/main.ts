@@ -2,7 +2,7 @@
  * Created by Ivan on 13.03.2021
  */
 import {getDMMF} from "@prisma/sdk";
-import {handler} from "../handler";
+import {handler} from "../generator";
 
 async function main(){
     const dmmf = await getDMMF({
@@ -10,7 +10,7 @@ async function main(){
     });
     handler({
         dmmf: dmmf,
-        handler: './src/prisma.handler.ts'
+        handler: './src/handlers/handlers.ts'
     });
     setInterval(()=>{}, 200);
 }

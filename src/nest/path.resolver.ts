@@ -1,6 +1,6 @@
 import {DMMF} from "@prisma/client/runtime";
-import {ArgsData} from "./args";
-import {InputData} from "./input";
+import {ArgsData} from "./generated/args";
+import {InputData} from "./generated/input";
 
 /**
  * Created by Ivan on 12.03.2021
@@ -24,5 +24,8 @@ export const PathResolver = {
     },
     union(model: { args: DMMF.SchemaArgInputType[] }){
         return `./gen/union/${model.args.map(value => value.type).join('And')}.union.ts`
+    },
+    "prisma.service"(){
+        return `./gen/prisma.service.ts`
     }
 }

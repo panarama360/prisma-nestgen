@@ -21,7 +21,9 @@
     "prisma-schema-dsl": "^1.1.5",
     "ts-morph": "^10.0.1"
   },
-  "scripts": {},
+  "scripts": {
+    "experiment": "ts-node-dev src/experiment/main.ts --watch"
+  },
   "devDependencies": {
     "@prisma/cli": "2.10.1",
     "@types/camelcase": "^5.2.0",

@@ -1,6 +1,6 @@
 import {SourceFile} from "ts-morph";
 import {ApplicationContext} from "./application.context";
-import {Imports} from "../nest/import.util";
+import {Imports} from "../nest/imports";
 import {PathResolver} from "../nest/path.resolver";
 
 /**

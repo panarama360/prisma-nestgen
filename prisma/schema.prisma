@@ -10,18 +10,19 @@ generator client {
 
 generator test {
   provider = "ts-node ./src/generator.ts"
-  handler = "./src/prisma.handler.ts"
+  handler = "./src/handlers/field.handler.ts"
 }
 
-/// @Metadata.test('hello', {hello: 'test', number: 12345})
+/// @Field.test('hello', {hello: 'test', number: 12345})
 model Organisation {
+/// @Field.test('id')
   id       Int      @id @default(autoincrement())
   testEnum TestEnum
   user     User     @relation(fields: [userId], references: [id])
   userId   Int
 }
 
-/// @Metadata.user()
+/// @Field.user()
 model User {
   id  Int            @id @default(autoincrement())
   orgs Organisation[]
