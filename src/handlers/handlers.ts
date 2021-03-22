@@ -5,6 +5,6 @@ import {Field} from "./field.handler";
 
 export function getHandlers(){
     return [
-        Field
+
     ]
 }

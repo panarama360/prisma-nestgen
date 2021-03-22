@@ -12,8 +12,9 @@ export abstract class Generated<T>{
     protected readonly imports: Imports = new Imports();
     abstract generate(): void;
 
-    constructor(protected context: ApplicationContext, protected model: T) {
-        this.sourceFile = context.getProject().createSourceFile(PathResolver[this.getKind()](model), '', {
+    constructor(protected context: ApplicationContext, protected model?: T) {
+        const path: string = PathResolver[this.getKind()] ? PathResolver[this.getKind()](this as any) : `./default.${this.getKind()}.ts`
+        this.sourceFile = context.getProject().createSourceFile(path, '', {
             overwrite: true
         });
     }
@@ -26,7 +27,18 @@ export abstract class Generated<T>{
         this.imports.resolveImports(this.sourceFile);
     }
 
-    abstract getName(): string
+    getContext(){
+        return this.context;
+    }
 
-    abstract getKind(): string;
+    getKind(): string {
+        return this.constructor.name.toLowerCase();
+    }
+
+    getGenData(){
+        return this.model;
+    }
+    abstract getName(): string;
+
+    abstract equals(model: T): boolean;
 }

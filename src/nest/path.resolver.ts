@@ -1,29 +1,33 @@
 import {DMMF} from "@prisma/client/runtime";
-import {ArgsData} from "./generated/args";
-import {InputData} from "./generated/input";
+import {Args, ArgsData} from "./generated/args";
+import {Entity} from "./generated/entity";
+import {Enum} from "./generated/enum";
+import {Input} from "./generated/input";
+import {Resolver} from "./generated/resolver";
+import {Output} from "./generated/output";
 
 /**
  * Created by Ivan on 12.03.2021
  */
 
 export const PathResolver = {
-    entity(model: DMMF.Model){
-        return `./gen/${model.name.toLowerCase()}/${model.name}.entity.ts`
+    entity(gen: Entity){
+        return `./gen/${gen.getGenData().toLowerCase()}/${gen.getGenData()}.entity.ts`
     },
-    enum(model: DMMF.SchemaEnum){
-        return `./gen/enums/${model.name}.enum.ts`
+    enum(gen: Enum){
+        return `./gen/enums/${gen.getGenData()}.enum.ts`
     },
-    input(model: InputData){
-        return `./gen/inputs/${model.input.name}.input.ts`
+    input(gen: Input){
+        return `./gen/inputs/${gen.getGenData()}.input.ts`
     },
-    resolver(model: DMMF.Model){
-        return `./gen/${model.name.toLowerCase()}/${model.name}.resolver.ts`
+    resolver(gen: Resolver){
+        return `./gen/${gen.getGenData().toLowerCase()}/${gen.getGenData()}.resolver.ts`
     },
-    args(model: ArgsData){
-        return `./gen/${model.model.name}/args/${model.model.name}.${model.action}.args.ts`
+    args(gen: Args){
+        return `./gen/${gen.getGenData().modelName}/args/${gen.getGenData().modelName}.${gen.getGenData().action}.args.ts`
     },
-    union(model: { args: DMMF.SchemaArgInputType[] }){
-        return `./gen/union/${model.args.map(value => value.type).join('And')}.union.ts`
+    output(gen: Output) {
+        return `./gen/outputs/${gen.getGenData()}.output.ts`
     },
     "prisma.service"(){
         return `./gen/prisma.service.ts`
